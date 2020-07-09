@@ -1,0 +1,1 @@
+# Home-Assistant-Salicru-SOHO-UPS
