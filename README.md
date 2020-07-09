@@ -1,3 +1,5 @@
+# Scope and objective
+
 This procedure depicts all the steps made on an attempt to fully integrate these cheap UPS on Proxmox VE and Home Assistant Core running on top of it.
 
 # Requirements
