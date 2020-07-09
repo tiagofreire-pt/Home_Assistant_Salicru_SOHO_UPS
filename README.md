@@ -1,15 +1,20 @@
-This procedure depicts all the steps made on an attempt to fully integrate this cheap UPS on Proxmox VE and Home Assistant Core running on top of it.
+This procedure depicts all the steps made on an attempt to fully integrate these cheap UPS on Proxmox VE and Home Assistant Core running on top of it.
 
+# Requirements
+
+* Proxmox VE 6.x
+* Home Assistant Core 0.112.4
+* USB port free on your hardware
 
 # Proxmox VE integration
 
 ## Connecting the UPS to the Proxmox hardware
 
-Use the USB port and the provided USB cable to connect the UPS straight into a free USB port, after powering up the UPS on the front power button.
+Use the UPS USB `Type A` port and the provided USB cable to connect it straight into a free USB port, after powering up the UPS on the front power button.
 
 ## Detecting the new USB device from the UPS
 
-Run on the Proxmox shell, throught the its web GUI:
+Run on the Proxmox shell, through its web GUI or SSH console:
 
 ```
 # lsbusb
@@ -31,6 +36,9 @@ Run:
 ```
 # apt update && apt install nut -y
 ```
+
+## Configuring both NUT services
+
 
 If does not exist, create the following file and its contents:
 
@@ -137,9 +145,11 @@ and:
 
 Finally, start both:
 
-
 ```
 # service nut-server start
+```
+and 
+```
 # service nut-client start
 ```
 
@@ -174,12 +184,13 @@ Finally, create a manual `lovelace` card with this proposal:
 
 ```
 entities:
-  - sensor.salicru_battery_chemistry
   - sensor.salicru_battery_runtime
+  - sensor.salicru_battery_charge 
   - sensor.salicru_battery_voltage
   - sensor.salicru_load
   - sensor.salicru_status
   - sensor.salicru_status_data
+  - sensor.salicru_battery_chemistry
 type: entities
 title: Salicru SPS SOHO+ 500 VA
 ```
