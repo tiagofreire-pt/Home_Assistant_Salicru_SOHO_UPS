@@ -12,7 +12,7 @@ This procedure depicts all the steps made on an attempt to fully integrate these
 
 ## Connecting the UPS to the Proxmox hardware
 
-Use the UPS USB `Type A` port (**on the back!**) and the provided USB cable to connect it straight into a free USB port, after powering up the UPS on the front power button.
+Use the UPS USB `Type B` port (**on the back!**) and the provided USB cable to connect it straight into a free USB port, after powering up the UPS on the front power button.
 
 ## Detecting the new USB device from the UPS
 
