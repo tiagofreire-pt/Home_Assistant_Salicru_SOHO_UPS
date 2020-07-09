@@ -2,6 +2,11 @@
 
 This procedure depicts all the steps made on an attempt to fully integrate these cheap UPS on Proxmox VE and Home Assistant Core running on top of it.
 
+The model tested was a `Salicru SPS SOHO+ 500 VA`, as such:
+
+![salicru_ups](./img/salicru_ups.jpg)
+
+
 # Requirements
 
 * Proxmox VE 6.x
