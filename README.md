@@ -1,6 +1,6 @@
 # Scope and objective
 
-This procedure depicts all the steps made on an attempt to fully integrate these cheap UPS on Proxmox VE and Home Assistant Core running on top of it.
+This procedure depicts all the steps made on an attempt to fully integrate these cheap UPS in Proxmox VE and Home Assistant Core running on it.
 
 The model tested was a `Salicru SPS SOHO+ 500 VA`, as such:
 
@@ -21,10 +21,10 @@ Use the UPS USB `Type B` port (**on the back!**) and the provided USB cable to c
 
 ## Detecting the new USB device from the UPS
 
-Run on the Proxmox shell, through its web GUI or SSH console:
+Run in the Proxmox shell, through its web GUI or SSH console:
 
 ```
-# lsbusb
+# lsusb
 ```
 
 You should see a similar line within the response:
@@ -46,7 +46,6 @@ Run:
 
 ## Configuring both NUT services
 
-
 If does not exist, create the following file and its contents:
 
 ```
@@ -61,10 +60,10 @@ port = auto
 desc = "Salicru"
 ```
 
-Create the following rule:
+Create the following rule that allows the `nut` user to access the UPS driver later on:
 
 ```
-nano /etc/udev/rules.d/90-nut-ups.rules
+# nano /etc/udev/rules.d/90-nut-ups.rules
 ```
 
 ```
@@ -72,7 +71,7 @@ nano /etc/udev/rules.d/90-nut-ups.rules
 ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="06da", ATTR{idProduct}=="ffff", MODE="0660", GROUP="nut"
 ```
 
-Restart the udev to apply the above rule that allows the `nut` user to access the UPS driver later on:
+Restart the udev to apply it:
 
 ```
 # service udev restart
@@ -103,7 +102,7 @@ LISTEN 127.0.0.1 3493
 # OR USE 0.0.0.0 IF NEEDED FOR ACCESSING ACROSS THE LAN
 ```
 
-Set the monitor username and its password. Use a strong one!
+Set the monitor username (`upsmonitor`) and its password (`YOUR_STRONG_PASSWORD`). Use a strong one!
 
 ```
 # nano /etc/nut/upsd.users
@@ -140,7 +139,9 @@ and
 # chmod 640 /etc/nut/*
 ```
 
-Enable both NUT server and client services:
+## Enabling and starting the NUT services
+
+Set them as enabled, both server and client services:
 
 ```
 # systemctl enable nut-server.service
@@ -169,6 +170,8 @@ If you are confronted with errors, check them through:
 
 # Home Assistant Core integration
 
+## Configuring the NUT client integration
+
 Go to your Home Assistant instance and open the following path:
 
 ```
@@ -186,6 +189,7 @@ After all the steps, you should find a proper configured integration like this:
 ![home_assistant_nut_client_configured](./img/home_assistant_nut_client_configured.png)
 >
 
+## Setting up a lovelace card for all the entities
 
 Finally, create a manual `lovelace` card with this proposal:
 
@@ -201,6 +205,10 @@ entities:
 type: entities
 title: Salicru SPS SOHO+ 500 VA
 ```
+
+Should be similar to this:
+
+![lovelace_card](./img/lovelace_card.PNG)
 
 Have fun! ;)
 
