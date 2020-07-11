@@ -58,6 +58,8 @@ maxretry = 3
 driver = usbhid-ups
 port = auto
 desc = "Salicru"
+# 15 seconds between each polling
+pollinterval = 15
 ```
 
 Create the following rule that allows the `nut` user to access the UPS driver later on:
@@ -216,4 +218,4 @@ Have fun! ;)
 # References
 
 * https://diyblindguy.com/howto-configure-ups-on-proxmox/
-* https://books.google.pt/books?id=Zls0TZcopvEC&pg=PA138&lpg=PA138&dq=chown+root:nut+/etc/nut/*&source=bl&ots=ARi3BvwKK-&sig=ACfU3U1XzOLtuie6jTxayyrfJC07Cxkq7A&hl=en&sa=X&ved=2ahUKEwi94_WDosHqAhXUDmMBHcr8DC8Q6AEwAHoECAoQAQ#v=onepage&q=chown%20root%3Anut%20%2Fetc%2Fnut%2F*&f=false
+* https://blog.shadypixel.com/monitoring-a-ups-with-nut-on-debian-or-ubuntu-linux
