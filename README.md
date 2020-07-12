@@ -255,7 +255,7 @@ automation:
  proxmox_shutdown_host_pve: bash /config/shell_scripts/proxmox_shutdown_host_pve.bash IP_PROXMOX USER_WITH_SYS.POWERMGMT PASSWORD NODE_NAME
  ```
 
-### /config/shell_scripts/proxmox_shutdown_host_pve.nash
+### /config/shell_scripts/proxmox_shutdown_host_pve.bash
 
 ```bash
 #!/bin/bash 
