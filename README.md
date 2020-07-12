@@ -271,7 +271,12 @@ curl --silent --insecure  --cookie "$(<cookie)" --header "$(<csrftoken)" -X POST
 rm cookie csrftoken
 ```
 
+Reboot your Home Assistant instance.
+
+Have fun! :-)
+
 # References
 
 * https://diyblindguy.com/howto-configure-ups-on-proxmox/
 * https://blog.shadypixel.com/monitoring-a-ups-with-nut-on-debian-or-ubuntu-linux
+* https://pve.proxmox.com/pve-docs/api-viewer/index.html#/nodes/{node}/status
