@@ -1,3 +1,19 @@
+# Table of Contents
+
+- [Scope and objective](#scope-and-objective)
+- [Requirements](#requirements)
+- [Proxmox VE integration](#proxmox-ve-integration)
+  * [Connecting the UPS to the Proxmox hardware](#connecting-the-ups-to-the-proxmox-hardware)
+  * [Detecting the new USB device from the UPS](#detecting-the-new-usb-device-from-the-ups)
+  * [Installing the NUT server and client](#installing-the-nut-server-and-client)
+  * [Configuring both NUT services](#configuring-both-nut-services)
+  * [Enabling and starting the NUT services](#enabling-and-starting-the-nut-services)
+- [Home Assistant Core integration](#home-assistant-core-integration)
+  * [Configuring the NUT client integration](#configuring-the-nut-client-integration)
+  * [Setting up a lovelace card for all the entities](#setting-up-a-lovelace-card-for-all-the-entities)
+  * [Automate the shutdown process](#automate-the-shutdown-process)
+- [References](#references)
+
 # Scope and objective
 
 This procedure depicts all the steps made on an attempt to fully integrate these cheap UPS in Proxmox VE and Home Assistant Core running on it.
