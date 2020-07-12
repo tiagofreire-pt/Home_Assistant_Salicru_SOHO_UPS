@@ -11,7 +11,7 @@
 - [Home Assistant Core integration](#home-assistant-core-integration)
   * [Configuring the NUT client integration](#configuring-the-nut-client-integration)
   * [Setting up a lovelace card for all the entities](#setting-up-a-lovelace-card-for-all-the-entities)
-  * [Automate the shutdown process](#automate-the-shutdown-process)
+  * [Automating the shutdown process](#automating-the-shutdown-process)
 - [References](#references)
 
 # Scope and objective
@@ -229,7 +229,7 @@ Should be similar to this:
 ![lovelace_card](./img/lovelace_card.PNG)
 
 
-## Automate the shutdown process
+## Automating the shutdown process
 
 In case of doubt, you can setup a safe guard, using Home Assistant, to monitor the UPS in discharge and trigger a Proxmox VE shutdown, on low battery level.
 
