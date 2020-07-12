@@ -212,8 +212,64 @@ Should be similar to this:
 
 ![lovelace_card](./img/lovelace_card.PNG)
 
-Have fun! ;)
 
+## Automate the shutdown process
+
+In case of doubt, you can setup a safe guard, using Home Assistant, to monitor the UPS in discharge and trigger a Proxmox VE shutdown, on low battery level.
+
+### Automations.yaml
+
+```yaml
+automation:
+- id: 'upsdischarged'
+  alias: 'UPS discharged - Start Shutdown'
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.salicru_battery_charge
+      below: 20
+      for:
+        seconds: 30
+    - platform: numeric_state
+      entity_id: sensor.salicru_battery_runtime
+      below: 240
+  condition:
+    condition: and
+    conditions:
+    - condition: template
+      value_template: >
+        {{ not(is_state('sensor.salicru_status_data','OL CHRG')) }}
+  action:
+    - service: shell_command.proxmox_shutdown_host_pve
+ ```
+ 
+ ### Configuration.yaml
+ 
+ ```yaml
+ shell_command:
+  proxmox_shutdown_host_pve: !secret proxmox_shutdown_host_pve
+ ```
+ 
+ ### Secrets.yaml
+ 
+ ```yaml
+ proxmox_shutdown_host_pve: bash /config/shell_scripts/proxmox_shutdown_host_pve.bash IP_PROXMOX USER_WITH_SYS.POWERMGMT PASSWORD NODE_NAME
+ ```
+
+### /config/shell_scripts/proxmox_shutdown_host_pve.nash
+
+```bash
+#!/bin/bash 
+
+APINODE=$1
+USER=$2
+PASSWORD=$3
+NODE=$4
+
+curl --silent --insecure --data "username=${USER}@pve&password=${PASSWORD}" https://$APINODE:8006/api2/json/access/ticket | jq --raw-output '.data.ticket' | sed 's/^/PVEAuthCookie=/' > cookie
+curl --silent --insecure --data "username=${USER}@pve&password=${PASSWORD}" https://$APINODE:8006/api2/json/access/ticket | jq --raw-output '.data.CSRFPreventionToken' | sed 's/^/CSRFPreventionToken:/' > csrftoken
+curl --silent --insecure  --cookie "$(<cookie)" --header "$(<csrftoken)" -X POST https://$APINODE:8006/api2/extjs/nodes/$NODE/status --data 'command=shutdown'
+rm cookie csrftoken
+```
 
 # References
 
