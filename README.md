@@ -244,7 +244,7 @@ automation:
       entity_id: sensor.salicru_battery_charge
       below: 20
       for:
-        seconds: 30
+        seconds: 5
     - platform: numeric_state
       entity_id: sensor.salicru_battery_runtime
       below: 240
