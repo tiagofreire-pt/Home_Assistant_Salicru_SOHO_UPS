@@ -1,3 +1,5 @@
+# Integrating Salicru SPS SOHO+ UPS on Proxmox VE and Home Assistant Core
+
 # Table of Contents
 
 - [Scope and objective](#scope-and-objective)
@@ -116,8 +118,8 @@ Edit the file and adjust accordingly:
 
 ```
 # LISTEN <address> [<port>]
-LISTEN 127.0.0.1 3493
-# OR USE 0.0.0.0 IF NEEDED FOR ACCESSING ACROSS THE LAN
+LISTEN 0.0.0.0 3493
+# This will cause the NUT server service to be listening all remote IP addresses, among the Proxmox localhost. Use it wisely.
 ```
 
 Set the monitor username (`upsmonitor`) and its password (`YOUR_STRONG_PASSWORD`). Use a strong one!
